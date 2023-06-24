@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
  
 const Navbar = () => {
     return (
-        <div className="fixed w-full h-26 shadow-md opacity-80 bg-white">
+        <div className="fixed w-full h-26 shadow-md opacity-90 bg-white">
             <div className="flex items-center w-full h-6 px-4 bg-pink-200">
                 <BsCircleFill color="white" className="p-1"/>
                 <BsCircleFill color="white" className="p-1"/>
