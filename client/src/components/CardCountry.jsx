@@ -20,7 +20,7 @@ function continentSvg (continent) {
 
 const CardCountry = ({ id, name, flag, continent, capital }) => {
     return (
-        <div className="h-40 w-auto m-7 flex justify-start items-center shadow-xl bg-gradient-to-r from-white to-pink-100">
+        <div className="h-40 w-auto m-7 flex justify-start items-center shadow-lg shadow-[#beb2fd] bg-white">
             <div className=" w-44 h-40 justify-center p-4">
                 <img src={flag} alt="" className="w-full h-full"/>
             </div>

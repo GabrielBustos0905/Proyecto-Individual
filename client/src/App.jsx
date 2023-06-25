@@ -9,9 +9,11 @@ const App = () => {
     return (
         <Provider store={store}>
             <BrowserRouter>
-                <Routes>
-                    <Route exact path="/" element={<Home />}/>
-                </Routes>
+                <div>
+                    <Routes>
+                        <Route exact path="/" element={<Home />}/>
+                    </Routes>
+                </div>
             </BrowserRouter>
         </Provider>
     )
