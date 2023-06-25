@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountries } from "../redux/actions";
+import CardCountry from "./CardCountry";
 
 const Countries = () => {
     const dispatch = useDispatch();
@@ -17,12 +18,17 @@ const Countries = () => {
                 <p className="text-4xl font-bold inline border-b-4 border-pink-200">Countries of te World</p>
             </div>
 
-            <div>
+            <div className="grid grid-cols-2">
                 {
                     countries ? countries.map(c => {
                         return (
-                            <div>
-                                {countries.length}
+                            <div key={c.id}>
+                                <CardCountry 
+                                    name={c.name}
+                                    flag={c.flag}
+                                    continent={c.continent}
+                                    capital={c.capital}
+                                />
                             </div>
                         )
                     }) : <p>Hola</p>
