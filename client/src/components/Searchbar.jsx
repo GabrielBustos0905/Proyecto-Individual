@@ -17,7 +17,7 @@ const Searchbar = () => {
         e.preventDefault();
         dispatch(searchCountryByName(input));
         setInput("")
-    }
+    };
  
     return (
         <div className="flex justify-center items-center bg-white w-auto p-2 rounded-2xl h-14">
