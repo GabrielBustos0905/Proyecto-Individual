@@ -4,6 +4,7 @@ import { getActivities, getCountries } from "../redux/actions";
 import CardCountry from "./CardCountry";
 import Searchbar from "./Searchbar";
 import Dropdown from "./Dropdown";
+import Paginado from "./Paginado";
 
 const Countries = () => {
     const dispatch = useDispatch();
@@ -12,7 +13,20 @@ const Countries = () => {
     const activities = useSelector((state) => state.activities);
     const nameActivities = activities.map(a => a.name)
 
-    const continents = ["Africa", "Antarctica", "Asia", "Europe", "North America", "South America"]
+    const continents = ["Africa", "Antarctica", "Asia", "Europe", "North America", "South America"];
+
+    // --------- Paginado ------------ 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [countriesPerPage, setCountriesPerPage] = useState(10);
+    const [orden, setOrden] = useState('');
+    const indexOfLastCountry = currentPage === 1 ? 9 : currentPage * countriesPerPage - 1;
+    const indexOfFirstCountry = currentPage === 1 ? 0 : indexOfLastCountry - countriesPerPage;
+    const currentCountries = countries.slice(indexOfFirstCountry, indexOfLastCountry);
+
+    const paginado = (pageNumber) => {
+        setCurrentPage(pageNumber)
+    };
+    // -------------------------------
 
     useEffect(() => {
         dispatch(getCountries());
@@ -24,7 +38,7 @@ const Countries = () => {
             <div className="p-8 m-auto w-11/12 h-40 flex flex-col items-center bg-[#8067ff] shadow-xl rounded-3xl mb-20">
                 <div className="flex justify-between items-center w-full h-full mt-5">
                     <p className="text-4xl font-bold text-gray-50">Countries of te World</p>
-                    <Searchbar />
+                    <Searchbar setCurrentPage={setCurrentPage}/>
                 </div>
                 <div className="h-20 w-1/3 grid grid-cols-2 bg-white mt-8 p-4 rounded-xl shadow-lg">
                     <Dropdown name={"Continents"} content={continents}/>
@@ -32,9 +46,15 @@ const Countries = () => {
                 </div>
             </div>
 
+            <Paginado 
+                countriesPerPage={countriesPerPage}
+                allCountries={countries.length}
+                paginado={paginado}
+            />
+
             <div className="h-screen grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
                 {
-                    countries ? countries.map(c => {
+                    currentCountries ? currentCountries.map(c => {
                         return (
                             <div key={c.id}>
                                 <CardCountry 

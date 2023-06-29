@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 const Dropdown = ({ name, content }) => {
     const [ menu, setMenu ] = useState(false);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -32,11 +32,11 @@ const Dropdown = ({ name, content }) => {
                                 {
                                     content?.map(c => {
                                         return (
-                                            <div key={c} className="h-10 flex items-center m-1 hover:bg-[#937efd]">
-                                                <button value={c} onClick={(e) => {handleClick(e)}}>
+                                            // <div key={c} className="h-10 flex items-center m-1 hover:bg-[#937efd]">
+                                                <button value={c} onClick={(e) => {handleClick(e)}} key={c} className="h-10 flex items-center m-1 hover:bg-[#937efd]">
                                                     <p className="font-medium text-lg text-gray-50">{c}</p>
                                                 </button>
-                                            </div>
+                                            // </div>
                                         )
                                     })
                                 }

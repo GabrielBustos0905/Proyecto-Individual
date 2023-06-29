@@ -3,7 +3,7 @@ import search from "../assets/search.png"
 import { useDispatch } from "react-redux";
 import { searchCountryByName } from "../redux/actions";
 
-const Searchbar = () => {
+const Searchbar = ({ setCurrentPage }) => {
     const dispatch = useDispatch();
     const [ input, setInput ] = useState("");
 
@@ -16,7 +16,8 @@ const Searchbar = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(searchCountryByName(input));
-        setInput("")
+        setInput("");
+        setCurrentPage(1)
     };
  
     return (
