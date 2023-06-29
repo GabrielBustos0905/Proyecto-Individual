@@ -33,3 +33,28 @@ export const searchCountryByName = (name) => {
         }
     }
 };
+
+export const filterBy = (value) => {
+    return {
+        type: "FILTER",
+        payload: value
+    }
+};
+
+export const getActivities = () => {
+    return async function(dispatch){
+        try {
+            const json = await axios.get('http://localhost:3001/activities');
+            return dispatch({
+                type: "GET_ACTIVITIES",
+                payload: json.data
+            })
+        } catch (error) {
+            return dispatch({
+                type: "ERROR",
+                payload: "Activities coulden't be loaded"
+            })
+        }
+    }
+};
+

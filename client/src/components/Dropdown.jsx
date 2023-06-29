@@ -1,8 +1,18 @@
 import React, { useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai"
+import { filterBy } from "../redux/actions";
+import { useDispatch } from "react-redux";
 
 const Dropdown = ({ name, content }) => {
     const [ menu, setMenu ] = useState(false);
+    const dispatch = useDispatch()
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        console.log(e)
+        dispatch(filterBy(e.target.innerText));
+        setMenu(!menu)
+    };
 
     return (
         <div>
@@ -18,12 +28,12 @@ const Dropdown = ({ name, content }) => {
             <div>
                     {
                         menu && (
-                            <div className="w-auto m-2 h-auto bg-[#8067ff] flex flex-col relative">
+                            <div className="w-auto m-2 h-auto bg-[#8067ff] flex flex-col cursor-pointer relative">
                                 {
                                     content?.map(c => {
                                         return (
-                                            <div className="h-10 flex items-center m-1 hover:bg-[#937efd]">
-                                                <button>
+                                            <div key={c} className="h-10 flex items-center m-1 hover:bg-[#937efd]">
+                                                <button value={c} onClick={(e) => {handleClick(e)}}>
                                                     <p className="font-medium text-lg text-gray-50">{c}</p>
                                                 </button>
                                             </div>
