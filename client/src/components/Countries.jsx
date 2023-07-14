@@ -41,8 +41,8 @@ const Countries = () => {
                     <Searchbar setCurrentPage={setCurrentPage}/>
                 </div>
                 <div className="h-20 w-1/3 grid grid-cols-2 bg-white mt-8 p-4 rounded-xl shadow-lg">
-                    <Dropdown name={"Continents"} content={continents}/>
-                    <Dropdown name={"Activities"} content={nameActivities}/>
+                    <Dropdown name={"Continents"} content={continents} setCurrentPage={setCurrentPage}/>
+                    <Dropdown name={"Activities"} content={nameActivities} setCurrentPage={setCurrentPage}/>
                 </div>
             </div>
 
@@ -52,7 +52,7 @@ const Countries = () => {
                 paginado={paginado}
             />
 
-            <div className="h-screen grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
+            <div className="h-full grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
                 {
                     currentCountries ? currentCountries.map(c => {
                         return (

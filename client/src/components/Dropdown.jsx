@@ -3,7 +3,7 @@ import { AiFillCaretDown } from "react-icons/ai"
 import { filterBy } from "../redux/actions";
 import { useDispatch } from "react-redux";
 
-const Dropdown = ({ name, content }) => {
+const Dropdown = ({ name, content, setCurrentPage }) => {
     const [ menu, setMenu ] = useState(false);
     const dispatch = useDispatch();
 
@@ -11,7 +11,8 @@ const Dropdown = ({ name, content }) => {
         e.preventDefault();
         console.log(e)
         dispatch(filterBy(e.target.innerText));
-        setMenu(!menu)
+        setMenu(!menu);
+        setCurrentPage(1)
     };
 
     return (

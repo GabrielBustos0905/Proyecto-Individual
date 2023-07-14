@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import image from "../assets/landingPage.avif"
 import Countries from "./Countries";
+import Activities from "./Activities";
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
                 <img src={image} alt="" className="h-screen w-full"/>
             </div>
             <Countries />
+            <Activities />
         </div>
     )
 };
