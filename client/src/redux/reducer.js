@@ -1,7 +1,8 @@
 const initialState = {
     countries: [],
     allCountries: [],
-    activities: []
+    countryDetail: [],
+    activities: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -50,6 +51,13 @@ const rootReducer = (state = initialState, action) => {
                     ...state,
                     countries: activityFiltered
                 }
+            }
+        }
+
+        case "GET_DETAILS":{
+            return{
+                ...state,
+                countryDetail: action.payload
             }
         }
 

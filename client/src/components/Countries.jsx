@@ -58,6 +58,7 @@ const Countries = () => {
                         return (
                             <div key={c.id}>
                                 <CardCountry 
+                                    id={c.id}
                                     name={c.name}
                                     flag={c.flag}
                                     continent={c.continent}

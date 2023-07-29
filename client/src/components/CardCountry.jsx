@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Africa from "../assets/africa.png";
 import Antarctica from "../assets/antarctica.png";
 import Asia from "../assets/asia.png";
@@ -6,7 +7,8 @@ import Europe from "../assets/europe.png";
 import NorthAmerica from "../assets/north-america.png";
 import Oceania from "../assets/oceania.png";
 import SouthAmerica from "../assets/south-america.png";
-import Capital from "../assets/hospital.png"
+import Capital from "../assets/hospital.png";
+import Info from "../assets/info.png";
 
 function continentSvg (continent) {
     if(continent == "Africa") return Africa;
@@ -26,7 +28,12 @@ const CardCountry = ({ id, name, flag, continent, capital }) => {
             </div>
 
             <div className="w-2/3 h-36 ml-4">
-                <p className="text-2xl pb-4 pt-2 font-semibold text-gray-600">{name}</p>
+                <div className="flex justify-between">
+                    <p className="text-2xl pb-4 pt-2 font-semibold text-gray-600">{name}</p>
+                    <Link to={`/${id}`}>
+                        <img src={Info} alt="" className="w-6 h-6 mt-2 duration-200 hover:scale-110 cursor-pointer"/>
+                    </Link>
+                </div>
                 <div className="grid grid-cols-2">
                     <div className="flex flex-col justify-start pt-2">
                         <p className="pr-2 pl-2 font-medium text-gray-400">Continent: </p>
