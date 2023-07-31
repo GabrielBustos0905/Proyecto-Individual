@@ -66,8 +66,8 @@ const findById = async (id) => {
     return response;
 };
 
-const createActivity = async (country, name, difficulty, duration, season) => {
-    if(country && name && difficulty && duration && season){
+const createActivity = async (country, name, image, difficulty, duration, season) => {
+    if(country && name && image && difficulty && duration && season){
         if(difficulty < 0 || difficulty > 5) throw new Error('Ingrese una dificultad valida (Entre 1 y 5)');
         if(country.length === 0) throw new Error("Error! Countries necesarios.");
 
@@ -86,6 +86,7 @@ const createActivity = async (country, name, difficulty, duration, season) => {
 
         const newActivity = await Activity.create({
             name: nombre(name),
+            image,
             difficulty,
             duration,
             season

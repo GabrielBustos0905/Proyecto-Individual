@@ -6,8 +6,8 @@ const router = Router();
 
 router.post('/', async (req, res) => {
     try {
-        const { countries, name, difficulty, duration, season } = req.body;
-        const response = await createActivity(countries, name, difficulty, duration, season);
+        const { countries, name, image, difficulty, duration, season } = req.body;
+        const response = await createActivity(countries, name, image, difficulty, duration, season);
 
         res.status(200).send(response)
     } catch (error) {

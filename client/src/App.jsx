@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import Home from "./components/Home";
 import CountryDetail from "./components/CountryDetail";
+import ActivityForm from "./components/ActivityForm";
 
 const App = () => {
     
@@ -14,6 +15,7 @@ const App = () => {
                     <Routes>
                         <Route path="/" element={<Home />}/>
                         <Route exact path="/:id" element={<CountryDetail />} />
+                        <Route exact path="/activityForm" element={<ActivityForm />} />
                     </Routes>
                 </div>
             </BrowserRouter>
