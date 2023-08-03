@@ -1,46 +1,165 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { AiFillWarning } from "react-icons/ai"
+import { createActivity, getCountries } from "../redux/actions";
 import Navbar from "./Navbar";
 
 const ActivityForm = () => {
+    const dispatch = useDispatch();
+    const countries = useSelector((state) => state.countries);
+    const countriesNames = countries.map(c => c.name);
+    const seasons = ['summer', 'autumn', 'winter', 'spring'];
+
+    // ---------- Estados de Difficulty -------------
+    const [difficulty, setDifficulty ] = useState(null);
+    const [hover, setHover] = useState(null);
+    // ----------------------------------------------
+
+    const { register, handleSubmit, watch, formState:{errors}, setValue } = useForm({defaultValues:{
+        name: "",
+        image: "",
+        difficulty: "",
+        duration: "",
+        season: "winter",
+        countries: []
+    }});
+
+    console.log(errors)
+
+    const onChange = (e) => {
+        const data = watch(`${e.target.name}`)
+        data.push(e.target.value);
+    };
+
+    const handleChangeDifficulty = (e) => {
+        setValue("difficulty", e.target.value)
+    };
+
+    const onSubmit = handleSubmit((data) => {
+            console.log(data);
+            dispatch(createActivity(data))
+        }
+    );
+    
+    useEffect(() => {
+        dispatch(getCountries())
+    }, [dispatch]);
+
     return (
         <div className="h-full w-full bg-gray-100">
             <Navbar />
-            <div className="flex justify-center items-center h-screen w-full">
-                <form>
-                    <div>
-                        <label>Name:</label>
+            <div className="h-screen flex justify-center items-center">
+                <form onSubmit={onSubmit} className="bg-white shadow-lg shadow-gray-200 p-6">
+                    <div className="flex flex-col mb-4 p-2">
+                    <label className="text-xs font-medium text-gray-500 pb-2">Name</label>
                         <input 
-                            type="text" 
-                            name="name"  
+                            type="text"
+                            className="border-b focus:outline-none focus:border-purple-600 focus:border-b-2 transition-colors"
+                            {...register("name", {
+                                required: {
+                                  value: true,
+                                  message: "Name is required"
+                                },
+                                minLength: {
+                                  value: 2,
+                                  message: "Name debe tener minimo 2 letras"
+                                },
+                                maxLength: {
+                                    value: 20,
+                                    message: "Name debe tener maximo 20 letras"
+                                }
+                            })}
+                            />
+                        {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
+                    </div>
+
+                    <div div className="flex flex-col mb-4 p-2">
+                        <label>Image: </label>
+                        <input 
+                            type="text"
+                            {...register("image")}
                         />
                     </div>
-                    <div>
-                        <label>Image:</label>
-                        <input 
-                            type="" 
-                            name="name"  
-                        />
+
+                    <div div className="flex flex-col mb-4 p-2 items-center">
+                        <label>Difficulty: </label>
+                        <div className="flex justify-center items-center">
+                            {
+                                [...Array(5)].map((icon, index) => {
+                                    const difficultyValue = index + 1;
+
+                                    return (
+                                        <label className="text-[12px]" key={index}>
+                                            <input 
+                                                type="radio"
+                                                {
+                                                    ...register("difficulty", {
+                                                        required:{
+                                                            value: true,
+                                                            message: "Difficulty is required"
+                                                        }
+                                                    })
+                                                }
+                                                value={difficultyValue}
+                                                onClick={() => setDifficulty(difficultyValue)}
+                                                onChange={(e) => handleChangeDifficulty(e)}
+                                                className="hidden"
+                                            />
+
+                                            <AiFillWarning
+                                                size={25}
+                                                onMouseEnter={() => setHover(difficultyValue)}
+                                                onMouseLeave={() => setHover(null)}
+                                                color={difficultyValue <= (hover || difficulty) ? "#ffc107" : "gray"}
+                                                className="cursor-pointer ease-in duration-300 mr-1"
+                                            />
+                                        </label>
+                                    )
+                                })
+                            }
+                        </div>
+                        {errors.difficulty && <span>{errors.difficulty.message}</span>}
                     </div>
-                    <div>
-                        <label>Name:</label>
-                        <input 
-                            type="text" 
-                            name="name"  
-                        />
+                    
+                    <div className="flex items-center justify-between">
+                        <div div className="flex flex-col mb-4 p-2w-5/12">
+                            <label>Duration: </label>
+                            <input 
+                                type="time" 
+                                {...register("duration")}    
+                            />
+                        </div>
+
+                        <div div className="flex flex-col mb-4 p-2 w-5/12">
+                            <label>Season: </label>
+                            <select name="season" onChange={e => onChange(e)}>
+                                {
+                                    seasons.map((s, id) => {
+                                        return (
+                                            <option key={id} value={s}>{s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
                     </div>
-                    <div>
-                        <label>Name:</label>
-                        <input 
-                            type="text" 
-                            name="name"  
-                        />
+
+                    <div div className="flex flex-col mb-4 p-2">
+                        <label>Select Countries: </label>
+                        <select name="countries" onChange={e => onChange(e)}>
+                            {
+                                countriesNames?.map((country, id) => {
+                                    return (
+                                        <option key={id} value={country}>{country}</option>
+                                    )
+                                })
+                            }
+                        </select>
                     </div>
-                    <div>
-                        <label>Name:</label>
-                        <input 
-                            type="text" 
-                            name="name"  
-                        />
+                    
+                    <div className="w-full h-10 mt-6 bg-blue-200 flex justify-center items-center">
+                        <button>Create</button>
                     </div>
                 </form>
             </div>

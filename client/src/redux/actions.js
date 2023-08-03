@@ -68,3 +68,12 @@ export const getActivities = () => {
     }
 };
 
+export const createActivity = async (data) => {
+    try {
+        const json = await axios.post("http://localhost:3001/activities", data);
+        return json
+    } catch (error) {
+        console.log(error)
+    }
+}
+
