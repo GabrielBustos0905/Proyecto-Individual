@@ -49,6 +49,7 @@ const ActivityForm = () => {
             setFile(e.target.files[0]);
             const result = await uploadFile(file);
             setValue("image", result);
+            setUrl(result)
         } catch (error) {
             console.log(error.message)
         }
@@ -69,120 +70,114 @@ const ActivityForm = () => {
             <Navbar />
             <div className="h-screen mt-4 flex justify-center items-center">
                 <form className="flex flex-col jusify-center items-center bg-white shadow-lg shadow-gray-200 p-6">
-
-                    <div div className="flex justify-center items-center w-40 h-40 rounded-full mb-4 p-2 ">
-                        <label htmlFor="file">
-                            <img src={addImage} alt="" className=" opacity-60"/>
-                        </label>
+                    <div className="flex flex-col w-full mb-4 p-2">
+                        <label className="text-xs font-medium text-gray-500 pb-2">Name</label>
                         <input 
-                            type="file"
-                            id="file"
+                            type="text"
+                            className="border-b focus:outline-none focus:border-purple-600 focus:border-b-2 transition-colors"
+                            {...register("name", {
+                                required: {
+                                    value: true,
+                                    message: "Name is required"
+                                },
+                                minLength: {
+                                    value: 2,
+                                    message: "Name debe tener minimo 2 letras"
+                                },
+                                maxLength: {
+                                    value: 20,
+                                    message: "Name debe tener maximo 20 letras"
+                                }
+                            })}
+                            />
+                        {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
+                    </div>
+
+                    <div className="flex flex-col w-full mb-4 p-2">
+                        <label className="text-xs font-medium text-gray-500 pb-2">Image</label>
+                        <input 
+                            type="file" 
                             onChange={e => handleChangeFile(e)}
-                            className="hidden"
+                            className="file:bg-purple-600 file:border-none file:text-white file:text-lg file:font-medium file:rounded-md file:p-2 file:cursor-pointer file:hover:bg-purple-400 file:duration-150"
                         />
                     </div>
 
-                    <div className="mt-6 mb-6">
-                        <div className="flex flex-col w-full mb-4 p-2">
-                            <label className="text-xs font-medium text-gray-500 pb-2">Name</label>
+                    <div className="flex flex-col w-full mb-4 p-2 items-center">
+                        <label className="text-xs font-medium text-gray-500 pb-2">Difficulty</label>
+                        <div className="flex justify-center items-center">
+                            {
+                                [...Array(5)].map((icon, index) => {
+                                    const difficultyValue = index + 1;
+
+                                    return (
+                                        <label className="text-[12px]" key={index}>
+                                            <input 
+                                                type="radio"
+                                                {
+                                                    ...register("difficulty", {
+                                                        required:{
+                                                            value: true,
+                                                            message: "Difficulty is required"
+                                                        }
+                                                    })
+                                                }
+                                                value={difficultyValue}
+                                                onClick={() => setDifficulty(difficultyValue)}
+                                                onChange={(e) => handleChangeDifficulty(e)}
+                                                className="hidden"
+                                            />
+
+                                            <AiFillWarning
+                                                size={25}
+                                                onMouseEnter={() => setHover(difficultyValue)}
+                                                onMouseLeave={() => setHover(null)}
+                                                color={difficultyValue <= (hover || difficulty) ? "#ffc107" : "gray"}
+                                                className="cursor-pointer ease-in duration-300 mr-1"
+                                            />
+                                        </label>
+                                    ) 
+                                })
+                            }
+                        </div>
+                        {errors.difficulty && <span>{errors.difficulty.message}</span>}
+                    </div>
+                    
+                    <div className="flex items-center w-full justify-between">
+                        <div div className="flex flex-col mb-4 p-2w-5/12">
+                            <label className="text-xs font-medium text-gray-500 pb-2">Duration</label>
                             <input 
-                                type="text"
-                                className="border-b focus:outline-none focus:border-purple-600 focus:border-b-2 transition-colors"
-                                {...register("name", {
-                                    required: {
-                                        value: true,
-                                        message: "Name is required"
-                                    },
-                                    minLength: {
-                                        value: 2,
-                                        message: "Name debe tener minimo 2 letras"
-                                    },
-                                    maxLength: {
-                                        value: 20,
-                                        message: "Name debe tener maximo 20 letras"
-                                    }
-                                })}
-                                />
-                            {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
+                                type="time" 
+                                {...register("duration")}    
+                            />
                         </div>
 
-                        <div div className="flex flex-col w-full mb-4 p-2 items-center">
-                            <label>Difficulty: </label>
-                            <div className="flex justify-center items-center">
+                        <div div className="flex flex-col mb-4 p-2 w-5/12">
+                            <label className="text-xs font-medium text-gray-500 pb-2">Season</label>
+                            <select name="season" onChange={e => onChange(e)}>
                                 {
-                                    [...Array(5)].map((icon, index) => {
-                                        const difficultyValue = index + 1;
-
+                                    seasons.map((s, id) => {
                                         return (
-                                            <label className="text-[12px]" key={index}>
-                                                <input 
-                                                    type="radio"
-                                                    {
-                                                        ...register("difficulty", {
-                                                            required:{
-                                                                value: true,
-                                                                message: "Difficulty is required"
-                                                            }
-                                                        })
-                                                    }
-                                                    value={difficultyValue}
-                                                    onClick={() => setDifficulty(difficultyValue)}
-                                                    onChange={(e) => handleChangeDifficulty(e)}
-                                                    className="hidden"
-                                                />
-
-                                                <AiFillWarning
-                                                    size={25}
-                                                    onMouseEnter={() => setHover(difficultyValue)}
-                                                    onMouseLeave={() => setHover(null)}
-                                                    color={difficultyValue <= (hover || difficulty) ? "#ffc107" : "gray"}
-                                                    className="cursor-pointer ease-in duration-300 mr-1"
-                                                />
-                                            </label>
-                                        ) 
-                                    })
-                                }
-                            </div>
-                            {errors.difficulty && <span>{errors.difficulty.message}</span>}
-                        </div>
-                        
-                        <div className="flex items-center w-full justify-between">
-                            <div div className="flex flex-col mb-4 p-2w-5/12">
-                                <label>Duration: </label>
-                                <input 
-                                    type="time" 
-                                    {...register("duration")}    
-                                />
-                            </div>
-
-                            <div div className="flex flex-col mb-4 p-2 w-5/12">
-                                <label>Season: </label>
-                                <select name="season" onChange={e => onChange(e)}>
-                                    {
-                                        seasons.map((s, id) => {
-                                            return (
-                                                <option key={id} value={s}>{s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()}</option>
-                                            )
-                                        })
-                                    }
-                                </select>
-                            </div>
-                        </div>
-
-                        <div div className="flex flex-col w-full mb-4 p-2">
-                            <label>Select Countries: </label>
-                            <select name="countries" onChange={e => onChange(e)}>
-                                {
-                                    countriesNames?.map((country, id) => {
-                                        return (
-                                            <option key={id} value={country}>{country}</option>
+                                            <option key={id} value={s}>{s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()}</option>
                                         )
                                     })
                                 }
                             </select>
                         </div>
                     </div>
-                    
+
+                    <div div className="flex flex-col w-full mb-4 p-2">
+                        <label className="text-xs font-medium text-gray-500 pb-2">Select Countries</label>
+                        <select name="countries" onChange={e => onChange(e)}>
+                            {
+                                countriesNames?.map((country, id) => {
+                                    return (
+                                        <option key={id} value={country}>{country}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
+
                     <div className="w-full h-10 mt-6 bg-blue-200 flex justify-center items-center">
                         <button onSubmit={onSubmit}>Create</button>
                     </div>
