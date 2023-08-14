@@ -29,7 +29,7 @@ const ActivityForm = () => {
         image: "",
         difficulty: "",
         duration: "",
-        season: "winter",
+        season: [],
         countries: []
     }});
 
@@ -49,7 +49,7 @@ const ActivityForm = () => {
             setFile(e.target.files[0]);
             const result = await uploadFile(file);
             setValue("image", result);
-            setUrl(result)
+            setUrl(result);
         } catch (error) {
             console.log(error.message)
         }
@@ -69,7 +69,7 @@ const ActivityForm = () => {
         <div className="h-full w-full bg-gray-100">
             <Navbar />
             <div className="h-screen mt-4 flex justify-center items-center">
-                <form className="flex flex-col jusify-center items-center bg-white shadow-lg shadow-gray-200 p-6">
+                <form onSubmit={onSubmit} className="flex flex-col jusify-center items-center bg-white shadow-lg shadow-gray-200 p-6">
                     <div className="flex flex-col w-full mb-4 p-2">
                         <label className="text-xs font-medium text-gray-500 pb-2">Name</label>
                         <input 
@@ -98,11 +98,12 @@ const ActivityForm = () => {
                         <input 
                             type="file" 
                             onChange={e => handleChangeFile(e)}
-                            className="file:bg-purple-600 file:border-none file:text-white file:text-lg file:font-medium file:rounded-md file:p-2 file:cursor-pointer file:hover:bg-purple-400 file:duration-150"
+                            className="file:bg-purple-600 file:border-none file:text-white file:text-lg file:font-medium file:rounded-md file:p-2 file:cursor-pointer file:hover:bg-purple-400 file:duration-150 text-gray-500 text-sm"
                         />
+                        {errors.image && <span className="text-red-500 text-sm">{errors.image.message}</span>}
                     </div>
 
-                    <div className="flex flex-col w-full mb-4 p-2 items-center">
+                    <div className="flex flex-col w-full mb-6 p-2 justify-center">
                         <label className="text-xs font-medium text-gray-500 pb-2">Difficulty</label>
                         <div className="flex justify-center items-center">
                             {
@@ -139,32 +140,33 @@ const ActivityForm = () => {
                                 })
                             }
                         </div>
-                        {errors.difficulty && <span>{errors.difficulty.message}</span>}
+                        {errors.difficulty && <span className="text-red-500 text-sm">{errors.difficulty.message}</span>}
                     </div>
-                    
-                    <div className="flex items-center w-full justify-between">
-                        <div div className="flex flex-col mb-4 p-2w-5/12">
-                            <label className="text-xs font-medium text-gray-500 pb-2">Duration</label>
+                     
+                    <div div className="flex flex-col w-full mb-6 p-2 justify-center">
+                        <label className="text-xs font-medium text-gray-500 pb-2">Duration</label>
+                        <div className="w-full flex justify-center items-center">
                             <input 
                                 type="time" 
-                                {...register("duration")}    
+                                {...register("duration")}
+                                className="w-20 border-b focus:outline-none focus:border-purple-600 focus:border-b-2 transition-colors"  
                             />
-                        </div>
-
-                        <div div className="flex flex-col mb-4 p-2 w-5/12">
-                            <label className="text-xs font-medium text-gray-500 pb-2">Season</label>
-                            <select name="season" onChange={e => onChange(e)}>
-                                {
-                                    seasons.map((s, id) => {
-                                        return (
-                                            <option key={id} value={s}>{s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()}</option>
-                                        )
-                                    })
-                                }
-                            </select>
                         </div>
                     </div>
 
+                    <div div className="flex flex-col w-full mb-6 p-2 justify-center">
+                        <label className="text-xs font-medium text-gray-500 pb-2">Season</label>
+                        <select name="season" onChange={e => onChange(e)}>
+                            {
+                                seasons.map((s, id) => {
+                                    return (
+                                        <option key={id} value={s}>{s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
+                    
                     <div div className="flex flex-col w-full mb-4 p-2">
                         <label className="text-xs font-medium text-gray-500 pb-2">Select Countries</label>
                         <select name="countries" onChange={e => onChange(e)}>
@@ -178,8 +180,8 @@ const ActivityForm = () => {
                         </select>
                     </div>
 
-                    <div className="w-full h-10 mt-6 bg-blue-200 flex justify-center items-center">
-                        <button onSubmit={onSubmit}>Create</button>
+                    <div className="w-full h-10 mt-6 bg-purple-400 flex justify-center items-center">
+                        <button className="h-full w-full hover:bg-purple-200">Create</button>
                     </div>
                 </form>
             </div>
