@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import Home from "./components/Home";
 import CountryDetail from "./components/CountryDetail";
-import ActivityForm from "./components/ActivityForm";
+import ActivityForm from "./components/Activity Form/ActivityForm";
 
 const App = () => {
     
