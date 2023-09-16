@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { AiFillWarning, AiOutlineDelete } from "react-icons/ai";
 import { createActivity, getCountries } from "../../redux/actions";
 import { uploadFile } from "../../firebase/config";
+import { validate } from "./validate";
 import Navbar from "../Navbar";
 
 const ActivityForm = () => {
@@ -31,16 +32,29 @@ const ActivityForm = () => {
     const [url, setUrl] = useState(null);
     // ----------------------------------------------
 
-    const [error, setError] = useState({
+    // ------------------ Errors --------------------
+    const [inputErrors, setInputErrors] = useState({
         name: "",
         image: "",
         difficulty: "",
         duration: "",
         season: "",
         countries: ""
-    })
+    });
+    const [isSubmit, setIsSubmit] = useState(false);
+    // ------------------------------------------------
+
+    // const [error, setError] = useState({
+    //     name: "",
+    //     image: "",
+    //     difficulty: "",
+    //     duration: "",
+    //     season: "",
+    //     countries: ""
+    // })
 
     const handleChange = (e) => {
+        console.log(e.target.value)
         setInput({
             ...input,
             [e.target.name]: e.target.value
@@ -49,14 +63,22 @@ const ActivityForm = () => {
 
     const handleChangeImge = async (e) => {
         setFile(e.target.files[0])
-        try {
-            const result = await uploadFile(file);
-            console.log(result);
+        // console.log(e.target.files[0])
+        try { 
+            if(!/.*(png|jpg|jpeg|gif)$/.test(e.target.files[0].type)){
+                setInputErrors({
+                    ...inputErrors,
+                    image: "Enter a URL image .png, .jpg, .jpeg, .gif"
+                })
+            }
+            const result = await uploadFile(e.target.files[0]);
+            // console.log(`Resultadp: ${result}`)
             setUrl(result)
             setInput({
                 ...input,
-                image: url
+                image: result
             })
+            // console.log(`Image: ${input.image}`)
         } catch (error) {
             console.log(error)
         }
@@ -85,21 +107,25 @@ const ActivityForm = () => {
         })
     };
 
-    const hanldeChangeError = (e) => {
-        if(e.target.name === "name"){
-            e.target.value.length <= 0 ? setError({...error, name: "Name is required"}) : setError({...error, name: ""})
-        };
-        if(e.target.name === "difficulty"){
-            e.target.value.length <= 0 ? setError({...error, difficulty: "Difficulty is required"}) : setError({...error, difficulty: ""})
-        }
-        console.log(error)
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(input);
+        setInputErrors(validate(input));
+        setIsSubmit(true);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(input)
-    };
-    
+    useEffect(() => {
+        if(Object.keys(inputErrors).length === 0 && isSubmit) {
+            console.log(input);
+            dispatch(createActivity(input));
+            alert("Activity was Created succesfully");
+        }
+    }, [inputErrors]);
+
+    useEffect(() => {
+        setInput(input)
+    }, [input])
+
     useEffect(() => {
         dispatch(getCountries())
     }, [dispatch]);
@@ -108,7 +134,7 @@ const ActivityForm = () => {
         <div className="h-full w-full bg-gray-100">
             <Navbar />
             <div className="h-full mt-12 flex justify-center items-center">
-                <form id="form" name="form" className="flex flex-col jusify-center items-center bg-white shadow-lg shadow-gray-200 p-6" onSubmit={e => handleSubmit(e)}>
+                <form id="form" name="form" className="flex flex-col jusify-center items-center bg-white shadow-lg shadow-gray-200 p-6" onSubmit={(e) => handleSubmit(e)}>
                     <div className="flex flex-col w-full mb-4 p-2">
                         <label className="text-xs font-medium text-gray-500 pb-2">Name</label>
                         <input 
@@ -116,10 +142,9 @@ const ActivityForm = () => {
                             name="name"
                             value={input.name}
                             onChange={(e) => handleChange(e)}
-                            onBlur={e => hanldeChangeError(e)}
                             className="border-b focus:outline-none focus:border-purple-600 focus:border-b-2 transition-colors"
                         />
-                        <span className="text-red-600 text-sm ">{error.name}</span>
+                        {inputErrors.name && <span className="text-red-600 text-sm">{inputErrors.name}</span>}
                     </div>
 
                     <div className="flex flex-col w-full mb-4 p-2">
@@ -129,6 +154,7 @@ const ActivityForm = () => {
                             className="file:bg-purple-600 file:border-none file:text-white file:text-lg file:font-medium file:rounded-md file:p-2 file:cursor-pointer file:hover:bg-purple-400 file:duration-150 text-gray-500 text-sm"
                             onChange={e => handleChangeImge(e)}
                         />
+                        {inputErrors.image && <span className="text-red-600 text-sm">{inputErrors.image}</span>}
                     </div>
 
                     <div className="flex flex-col w-full mb-6 p-2 justify-center">
@@ -143,7 +169,7 @@ const ActivityForm = () => {
                                             <input 
                                                 type="radio"
                                                 name="difficulty"
-                                                value={input.difficulty}
+                                                value={difficultyValue}
                                                 onClick={() => setDifficulty(difficultyValue)}
                                                 onChange={e => handleChange(e)}
                                                 className="hidden"
@@ -161,6 +187,7 @@ const ActivityForm = () => {
                                 })
                             }
                         </div>
+                        {inputErrors.difficulty && <span className="text-red-600 text-sm">{inputErrors.difficulty}</span>}
                     </div>
                      
                     <div div className="flex flex-col w-full mb-6 p-2 justify-center">
@@ -168,15 +195,18 @@ const ActivityForm = () => {
                         <div className="w-full flex justify-center items-center">
                             <input 
                                 type="time"
+                                name="duration"
+                                value={input.duration}
                                 className="w-20 border-b focus:outline-none focus:border-purple-600 focus:border-b-2 transition-colors" 
                                 onChange={e => handleChange(e)}
                             />
                         </div>
+                        {inputErrors.duration && <span className="text-red-600 text-sm">{inputErrors.duration}</span>}
                     </div>
 
                     <div div className="flex flex-col w-full mb-6 p-2 justify-center">
                         <label className="text-xs font-medium text-gray-500 pb-2">Season</label>
-                        <select name="season" className="bg-purple-200 w-full h-10" onChange={e => handleSelect(e)}>
+                        <select name="season" className="bg-purple-200 w-full h-10 rounded-md" onChange={e => handleSelect(e)}>
                             {
                                 seasons.map((s, id) => {
                                     return (
@@ -185,28 +215,12 @@ const ActivityForm = () => {
                                 })
                             }
                         </select>
-
-                        {
-                            input.season.length > 0 && 
-                                <div className="grid lg:grid-cols-3 justify-center items-center m-4">
-                                    {
-                                        input.season.map((s, index) => {
-                                            return (
-                                                <div key={index} className="flex justify-between items-center bg-purple-400 rounded-md p-1 m-1">
-                                                    <p className="text-white font-semibold mr-2">{s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()}</p>
-                                                    <button onClick={() => handleDeleteSeason(s)}><AiOutlineDelete color="red"/></button>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                        }
-                        
+                        {inputErrors.season && <span className="text-red-600 text-sm">{inputErrors.season}</span>}
                     </div>
                     
                     <div div className="flex flex-col w-full mb-4 p-2">
                         <label className="text-xs font-medium text-gray-500 pb-2">Select Countries</label>
-                        <select name="countries" className="bg-purple-200 w-full h-10" onChange={e => handleSelect(e)}>
+                        <select name="countries" className="bg-purple-200 w-full h-10 rounded-md" onChange={e => handleSelect(e)}>
                             {
                                 countriesNames?.map((country, id) => {
                                     return (
@@ -215,29 +229,55 @@ const ActivityForm = () => {
                                 })
                             }
                         </select>
-
-                        {
-                            input.countries.length > 0 && 
-                                <div className="grid lg:grid-cols-3 justify-center items-center m-4">
-                                    {
-                                        input.countries.map((c, index) => {
-                                            return (
-                                                <div key={index} className="flex justify-between items-center bg-purple-400 rounded-md p-1 m-1">
-                                                    <p className="text-white font-semibold mr-2">{c.charAt(0).toUpperCase() + c.slice(1).toLowerCase()}</p>
-                                                    <button onClick={() => handleDeleteCountry(c)}><AiOutlineDelete color="red"/></button>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                        }
+                        {inputErrors.countries && <span className="text-red-600 text-sm">{inputErrors.countries}</span>}
                     </div>
 
                     <div className="w-full h-10 mt-6 bg-purple-600 flex justify-center items-center">
                         <button className="h-full w-full hover:bg-purple-400 duration-300 text-white font-bold"><p className="hover:scale-110">Create</p></button>
                     </div>
                 </form>
-                <img src={url} alt="" />
+
+                {
+                    input.season.length > 0 || input.countries.length > 0 ?
+                        <div className="flex flex-col justify-center items-center m-8 p-4 bg-white shadow-md">
+                        {
+                            input.season.length > 0 &&
+                                <div className="w-full">
+                                    <p className="text-gray-500 font-semibold text-lg ml-5">Seasons</p>
+                                    <div className="grid lg:grid-cols-3 justify-center items-center m-4">
+                                        {
+                                            input.season.map((s, index) => {
+                                                return (
+                                                    <div key={index} className="flex justify-between items-center bg-purple-400 rounded-md p-1 m-1">
+                                                        <p className="text-white font-semibold mr-2">{s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()}</p>
+                                                        <button onClick={() => handleDeleteSeason(s)}><AiOutlineDelete color="red"/></button>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                        }
+                        {
+                            input.countries.length > 0 &&
+                                <div className="w-full mt-8">
+                                    <p className="text-gray-500 font-semibold text-lg ml-5">Countries</p>
+                                    <div className="grid lg:grid-cols-2 justify-center items-center m-4">
+                                        {
+                                            input.countries.map((c, index) => {
+                                                return (
+                                                    <div key={index} className="flex justify-between items-center bg-purple-400 rounded-md p-1 m-1">
+                                                        <p className="text-white font-semibold mr-2">{c.charAt(0).toUpperCase() + c.slice(1).toLowerCase()}</p>
+                                                        <button onClick={() => handleDeleteCountry(c)}><AiOutlineDelete color="red"/></button>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div> : <p></p>
+                }
             </div>
         </div>
     )
