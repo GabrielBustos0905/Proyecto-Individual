@@ -7,6 +7,7 @@ import Autumn from "../assets/leaf-fall.png";
 import Spring from "../assets/flowers.png";
 import Summer from "../assets/sun.png";
 import Winter from "../assets/snowflake.png";
+import { Link } from "react-router-dom";
 
 const Activities = () => {
 
@@ -56,6 +57,9 @@ const Activities = () => {
                         )
                     })
                 }
+            </div>
+            <div className="flex justify-center items-center mt-6 p-12">
+                <Link to="/activityForm" className="bg-violet-400 rounded-md shadow-md hover:bg-violet-600 hover:duration-500"><p className="text-white font-semibold text-lg p-2">Add Activity</p></Link>
             </div>
         </div>
     )

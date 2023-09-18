@@ -124,7 +124,7 @@ const ActivityForm = () => {
 
     useEffect(() => {
         setInput(input)
-    }, [input])
+    }, [input]);
 
     useEffect(() => {
         dispatch(getCountries())

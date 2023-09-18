@@ -25,7 +25,7 @@ const Navbar = () => {
                     
                     <div className="pr-10">
                         <ul className="flex flex-col-2 items-center justify-center">
-                            <li className="px-5 cursor-pointer capitalize font-light hover:scale-105 duration-200 mr-4">Home</li>
+                            <li className="px-5 cursor-pointer capitalize font-light hover:scale-105 duration-200 mr-4"><Link to="/">Home</Link></li>
                             <li className="px-5 cursor-pointer capitalize font-light hover:scale-105 duration-200">Abaut</li>
                         </ul>
                     </div>
