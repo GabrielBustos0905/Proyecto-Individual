@@ -43,15 +43,15 @@ const Activities = () => {
 
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 px-12 sm:px-0 pb-10">
                 {
-                    activities?.map(({ id, name, difficulty, season, image}) => {
+                    activities?.map(({ id, name, difficulty, season, image, duration}) => {
                         return (
                             <div key={id}>
                                 <CardActivity 
-                                    id={id}
                                     name={name}
                                     difficulty={difficulty}
                                     season={season}
                                     image={image}
+                                    duration={duration}
                                 />
                             </div>
                         )

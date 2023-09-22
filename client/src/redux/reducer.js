@@ -3,6 +3,7 @@ const initialState = {
     allCountries: [],
     countryDetail: [],
     activities: [],
+    borders: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -43,7 +44,6 @@ const rootReducer = (state = initialState, action) => {
             };
 
             const findCountries = allCountries.filter(c => c.activities.length > 0 ? c.name : null)
-            // console.log(findCountries)
             const activityFiltered = findCountries.filter(c => c.activities.find(a => a.name === action.payload));
 
             if(activityFiltered.length){

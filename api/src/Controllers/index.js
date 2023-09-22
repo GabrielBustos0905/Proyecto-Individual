@@ -56,7 +56,7 @@ const findByName = async (country) => {
 const findById = async (id) => {
     const response = await Country.findByPk(id.toUpperCase(), {include: {
         model: Activity,
-        attributes: ['name', 'difficulty', 'duration', 'season'],
+        attributes: ['name', 'difficulty', 'duration', 'season', 'image'],
         through:{
             attributes: []
         }

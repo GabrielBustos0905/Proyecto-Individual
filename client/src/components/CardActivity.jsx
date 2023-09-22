@@ -1,6 +1,6 @@
 import React from "react";
 
-const CardActivity = ({ id, name, difficulty, season, image }) => {
+const CardActivity = ({ name, difficulty, season, image, duration }) => {
     
     return (
         <div className="flex justify-center items-center">
@@ -27,6 +27,11 @@ const CardActivity = ({ id, name, difficulty, season, image }) => {
                             )
                         })
                     }
+                </div>
+
+                <div className="flex items-center pl-2">
+                    <p className="text-lg font-semibold text-gray-500 pr-2">Duration:</p>
+                    <p>{duration}</p>
                 </div>
             </div>
         </div>
