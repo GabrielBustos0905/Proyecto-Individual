@@ -14,7 +14,7 @@ const api = async () => {
             area : country.area,
             population : country.population,
             borders: country.borders ? country.borders : ['No hay datos'],
-            maps: country.maps.googleMaps,
+            coords: country.latlng ? country.latlng : ['No hay datos'],
             timezones: country.timezones[0]
         }
     });
@@ -34,7 +34,7 @@ const api = async () => {
                     area : c.area,
                     population : c.population,
                     borders: c.borders,
-                    maps: c.maps,
+                    coords: c.coords,
                     timezones: c.timezones
                 }
             })

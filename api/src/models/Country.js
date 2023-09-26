@@ -37,8 +37,8 @@ module.exports = (sequelize) => {
     borders: {
       type: DataTypes.ARRAY(DataTypes.STRING)
     },
-    maps: {
-      type: DataTypes.STRING
+    coords: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER)
     },
     timezones: {
       type: DataTypes.STRING
