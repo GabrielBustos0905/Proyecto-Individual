@@ -23,12 +23,11 @@ const CountryDetail = () => {
                 <div className="flex flex-col justify-center items-center bg-white w-10/12">
                     <div className="flex justify-center items-center">
                         <div className="w-1/3 flex justify-center items-center m-4">
-                            
-                            <MapViews coords={country.coords ? country.coords : [0, 0]}/>
+                            <MapViews coords={country.coords ? country.coords : [0, 0]} name={country.name}/>
                         </div>
                         <div className="w-2/3 flex flex-col justify-center items-center m-4">
                             <h2 className="text-gray-600 text-4xl font-semibold inline border-b-4 border-[#ad9efc] mb-8">{country.name}</h2>
-                            <img src={country.flag} alt="" className="w-80 h-40"/>
+                            <img src={country.flag} alt="" className="w-80 h-40 mb-8"/>
                             <div className="flex justify-center items-center">
                                 <div className="flex justify-center items-center m-4">
                                     <p className="text-gray-400 text-xl font-medium">Continent:</p>
@@ -61,7 +60,7 @@ const CountryDetail = () => {
                             </div>
                             <div className="flex flex-col justify-center items-center mt-4">
                                 <p className="text-gray-400 text-xl font-medium">Borders</p>
-                                <div className="grid grid-cols-6">
+                                <div className="grid grid-cols-6 justify-center items-center">
                                     {country.borders?.map((border, index) => (
                                         <p key={index} className="text-xl font-semibold m-2">{border}</p>
                                     ))}

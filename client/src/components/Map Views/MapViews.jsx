@@ -3,7 +3,7 @@ import { Popup } from "react-leaflet";
 import 'leaflet/dist/Leaflet.css';
 import './MapViews.css'
 
-const MapViews = ({coords}) => {
+const MapViews = ({coords, name}) => {
     // console.log(coords)
     const position = coords
     return (
@@ -15,7 +15,7 @@ const MapViews = ({coords}) => {
                 />
                 <Marker position={position}>
                     <Popup>
-                        <p>Inglaterra</p>
+                        <p>{name}</p>
                     </Popup>
                 </Marker>
             </MapContainer>

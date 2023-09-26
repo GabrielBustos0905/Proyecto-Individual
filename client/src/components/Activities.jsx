@@ -4,9 +4,6 @@ import Trekking from "../assets/trekking.jpg";
 import Tennis from "../assets/tennis.jpg";
 import CardActivity from "./CardActivity";
 import Autumn from "../assets/leaf-fall.png";
-import Spring from "../assets/flowers.png";
-import Summer from "../assets/sun.png";
-import Winter from "../assets/snowflake.png";
 import { Link } from "react-router-dom";
 
 const Activities = () => {
@@ -16,22 +13,25 @@ const Activities = () => {
             id: 1,
             name: "Ski",
             difficulty: 4,
-            season: [Winter],
-            image: Ski
+            season: ["Winter"],
+            image: Ski,
+            duration: "13:04"
         },
         {
             id: 2,
             name: "Trekking",
             difficulty: 2,
-            season: [Winter, Summer, Autumn],
-            image: Trekking
+            season: ["Winter", "Summer", "Autumn"],
+            image: Trekking,
+            duration: "13:04"
         },
         {
             id: 3,
             name: "Tennis",
             difficulty: 4,
-            season: [Winter, Summer, Autumn, Spring],
-            image: Tennis
+            season: ["Winter", "Summer", "Autumn", "Spring"],
+            image: Tennis,
+            duration: "13:04"
         }
     ]
 

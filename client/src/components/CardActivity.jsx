@@ -18,15 +18,19 @@ const CardActivity = ({ name, difficulty, season, image, duration }) => {
                     <p>{difficulty}</p>
                 </div>
 
-                <div className="flex items-center pl-2 pb-4 pt-2">
+                <div className="flex flex-col justify-center pl-2 pb-4 pt-2">
                     <p className="text-lg font-semibold text-gray-500 pr-2">Season:</p>
-                    {
-                        season.map((s, id) => {
-                            return (
-                                <img key={id} src={s} alt="" className="w-6 h-6 m-2"/>
-                            )
-                        })
-                    }
+                    <div className="grid grid-cols-3 justify-center items-center">
+                        {
+                            season.map((s, id) => {
+                                return (
+                                    // <img key={id} src={s} alt="" className="w-6 h-6 m-2"/>
+                                    <p key={id} className="text-md font-medium">{s}</p>
+                                )
+                            })
+                        }
+                    </div>
+                    
                 </div>
 
                 <div className="flex items-center pl-2">
