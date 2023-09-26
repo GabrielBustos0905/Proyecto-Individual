@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCountryDetail } from "../redux/actions";
 import Navbar from "./Navbar";
 import MapViews from "./Map Views/MapViews";
+import CardActivity from "./CardActivity";
 
 const CountryDetail = () => {
     const { id } = useParams();
@@ -76,8 +77,25 @@ const CountryDetail = () => {
                     </div>
                 </div>
 
-                <div className="flex justify-center items-center mt-16">
+                <div className="flex flex-col justify-center items-center mt-16 mb-8">
                     <h2 className="text-gray-600 text-4xl font-semibold inline border-b-4 border-[#ad9efc] mb-8">Activities</h2>
+                    <div>
+                        {
+                            country.activities?.map((activity, index) => {
+                                return(
+                                    <div key={index}>
+                                        <CardActivity
+                                            name={activity.name}
+                                            difficulty={activity.difficulty}
+                                            season={activity.season}
+                                            image={activity.image}
+                                            duration={activity.duration}
+                                        />
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                 </div>       
             </div>
         </div>

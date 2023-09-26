@@ -25,7 +25,7 @@ const CardActivity = ({ name, difficulty, season, image, duration }) => {
                             season.map((s, id) => {
                                 return (
                                     // <img key={id} src={s} alt="" className="w-6 h-6 m-2"/>
-                                    <p key={id} className="text-md font-medium">{s}</p>
+                                    <p key={id} className="text-md font-medium">{s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()}</p>
                                 )
                             })
                         }

@@ -2,8 +2,7 @@ import React from "react";
 import Ski from "../assets/ski.png";
 import Trekking from "../assets/trekking.jpg";
 import Tennis from "../assets/tennis.jpg";
-import CardActivity from "./CardActivity";
-import Autumn from "../assets/leaf-fall.png";
+import CardActivity from "./CardActivity";  
 import { Link } from "react-router-dom";
 
 const Activities = () => {
