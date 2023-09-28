@@ -61,7 +61,7 @@ const CountryDetail = () => {
                             </div>
                             <div className="flex flex-col justify-center items-center mt-4">
                                 <p className="text-gray-400 text-xl font-medium">Borders</p>
-                                <div className="grid grid-cols-6 justify-center items-center">
+                                <div className="flex flex-auto justify-center items-center">
                                     {country.borders?.map((border, index) => (
                                         <p key={index} className="text-xl font-semibold m-2">{border}</p>
                                     ))}
@@ -79,11 +79,11 @@ const CountryDetail = () => {
 
                 <div className="flex flex-col justify-center items-center mt-16 mb-8">
                     <h2 className="text-gray-600 text-4xl font-semibold inline border-b-4 border-[#ad9efc] mb-8">Activities</h2>
-                    <div>
+                    <div className="flex justify-center items-center">
                         {
                             country.activities?.map((activity, index) => {
                                 return(
-                                    <div key={index}>
+                                    <div key={index} className="m-4">
                                         <CardActivity
                                             name={activity.name}
                                             difficulty={activity.difficulty}

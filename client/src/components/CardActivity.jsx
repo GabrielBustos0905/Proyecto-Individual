@@ -1,6 +1,30 @@
 import React from "react";
+import Autumn from "../assets/leaf-fall.png";
+import Summer from "../assets/sun.png";
+import Spring from "../assets/flowers.png";
+import Winter from "../assets/snowflake.png";
+import { AiFillWarning } from "react-icons/ai";
 
 const CardActivity = ({ name, difficulty, season, image, duration }) => {
+
+    const seasons = [
+        {
+            name: "autumn",
+            image: Autumn
+        },
+        {
+            name: "summer",
+            image: Summer
+        },
+        {
+            name: "spring",
+            image: Spring
+        },
+        {
+            name: "winter",
+            image: Winter
+        }
+    ]
     
     return (
         <div className="flex justify-center items-center">
@@ -15,21 +39,34 @@ const CardActivity = ({ name, difficulty, season, image, duration }) => {
 
                 <div className="flex items-center pl-2">
                     <p className="text-lg font-semibold text-gray-500 pr-2">Difficulty:</p>
-                    <p>{difficulty}</p>
-                </div>
-
-                <div className="flex flex-col justify-center pl-2 pb-4 pt-2">
-                    <p className="text-lg font-semibold text-gray-500 pr-2">Season:</p>
-                    <div className="grid grid-cols-3 justify-center items-center">
+                    <div className="flex justify-center items-center">
                         {
-                            season.map((s, id) => {
+                            [...Array(5)].map((icon, index) => {
+                                const difficultyValue = index + 1
+                                console.log(difficulty)
                                 return (
-                                    // <img key={id} src={s} alt="" className="w-6 h-6 m-2"/>
-                                    <p key={id} className="text-md font-medium">{s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()}</p>
+                                    <label className="text-[12px]" key={index}>
+                                    <AiFillWarning
+                                        size={20}
+                                        color={difficultyValue <= difficulty ? "#ffc107" : "gray"}
+                                    />
+                                    </label>
                                 )
                             })
                         }
                     </div>
+                </div>
+
+                <div className="flex items-center pl-2 pb-4 pt-2">
+                    <p className="text-lg font-semibold text-gray-500 pr-2">Season:</p>
+                        {
+                            season.map((s, id) => {
+                                let temporada = seasons.find(seas => seas.name === s);
+                                return (
+                                    <img key={id} src={temporada.image} alt="" className="w-6 h-6 m-2"/>
+                                )
+                            })
+                        }
                     
                 </div>
 

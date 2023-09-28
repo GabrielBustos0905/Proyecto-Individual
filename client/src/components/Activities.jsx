@@ -5,6 +5,7 @@ import Tennis from "../assets/tennis.jpg";
 import CardActivity from "./CardActivity";  
 import { Link } from "react-router-dom";
 
+
 const Activities = () => {
 
     const activities = [
@@ -12,7 +13,7 @@ const Activities = () => {
             id: 1,
             name: "Ski",
             difficulty: 4,
-            season: ["Winter"],
+            season: ["winter"],
             image: Ski,
             duration: "13:04"
         },
@@ -20,7 +21,7 @@ const Activities = () => {
             id: 2,
             name: "Trekking",
             difficulty: 2,
-            season: ["Winter", "Summer", "Autumn"],
+            season: ["winter", "summer", "autumn"],
             image: Trekking,
             duration: "13:04"
         },
@@ -28,7 +29,7 @@ const Activities = () => {
             id: 3,
             name: "Tennis",
             difficulty: 4,
-            season: ["Winter", "Summer", "Autumn", "Spring"],
+            season: ["winter", "summer", "autumn", "spring"],
             image: Tennis,
             duration: "13:04"
         }
