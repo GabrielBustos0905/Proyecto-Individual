@@ -2,6 +2,7 @@ import React from "react";
 import icon from "../assets/Icono.png";
 import {BsCircleFill} from "react-icons/bs";
 import { Link } from "react-scroll";
+import { Link as Links } from "react-router-dom";
 
 const NavbarHome = () => {
     const links = [
@@ -12,10 +13,6 @@ const NavbarHome = () => {
         {
             id: 2,
             link: "countries"
-        },
-        {
-            id: 3,
-            link: "abaut"
         }
     ];
 
@@ -45,6 +42,7 @@ const NavbarHome = () => {
                                         </li>
                                     ))
                                 }
+                                <li className="px-4 cursor-pointer capitalize font-medium text-gray-500 hover:scale-105 duration-200"><Links to="/abaut">Abaut</Links></li>
                             </ul>
                         </div>
                     </div>
