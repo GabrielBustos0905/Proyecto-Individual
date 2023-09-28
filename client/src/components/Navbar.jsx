@@ -18,7 +18,7 @@ const Navbar = () => {
                     <div className="flex justify-center items-center flex-col-2">
                         <Link to="/"><img src={icon} alt="" className="w-20 h-full"/></Link>
                         <div className="justify-center items-center">
-                            <h1 className="pr-4 text-2xl">Proyecto Individual</h1>
+                            <h1 className="pr-4 text-2xl">World in Detail</h1>
                             <p className="font-light">Countries</p>
                         </div>
                     </div>

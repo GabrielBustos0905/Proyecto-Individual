@@ -36,7 +36,7 @@ const Activities = () => {
     ]
 
     return (
-        <div className="pt-60 w-full h-full bg-gray-100">
+        <div name="activities" className="pt-60 w-full h-full bg-gray-100">
             <div className="flex justify-center items-center mb-20">
                 <p className="text-4xl font-semibold text-gray-600 inline border-b-4 border-[#ad9efc]">Some Activities</p>
             </div>

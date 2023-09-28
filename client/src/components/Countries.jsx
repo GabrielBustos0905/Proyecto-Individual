@@ -34,7 +34,7 @@ const Countries = () => {
     }, [dispatch]); 
 
     return (
-        <div className="pt-60 w-full h-full bg-gray-100">
+        <div name="countries" className="pt-60 w-full h-full bg-gray-100">
             <div className="p-8 m-auto w-11/12 h-40 flex flex-col items-center bg-[#8067ff] shadow-xl rounded-3xl mb-20">
                 <div className="flex justify-between items-center w-full h-full mt-5">
                     <p className="text-4xl font-bold text-gray-50">Countries of te World</p>
