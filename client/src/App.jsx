@@ -6,6 +6,9 @@ import Home from "./components/Home";
 import CountryDetail from "./components/CountryDetail";
 import ActivityForm from "./components/Activity Form/ActivityForm";
 import Abaut from "./components/Abaut";
+import axios from "axios";
+
+axios.defaults.baseURL = "http://localhost:3001"
 
 const App = () => {
     
