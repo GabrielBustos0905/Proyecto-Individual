@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import Icon from "../assets/icono.png";
+import Icon from "../assets/Icono.png";
 import React from "../assets/react.png";
 import Html from "../assets/html.png";
 import Tailwind from "../assets/tailwind.png";
