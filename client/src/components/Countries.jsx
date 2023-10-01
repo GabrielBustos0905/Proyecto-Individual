@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getActivities, getCountries } from "../redux/actions";
+import { GoMultiSelect } from "react-icons/go";
 import CardCountry from "./CardCountry";
 import Searchbar from "./Searchbar";
 import Dropdown from "./Dropdown";
 import Paginado from "./Paginado";
+import ButtonOrder from "./ButtonOrder";
 
 const Countries = () => {
     const dispatch = useDispatch();
@@ -51,6 +53,11 @@ const Countries = () => {
                 allCountries={countries.length}
                 paginado={paginado}
             />
+
+            <div className="flex justify-between">
+                <ButtonOrder name={"Name"} setCurrentPage={setCurrentPage}/>
+                <ButtonOrder name={"Population"} setCurrentPage={setCurrentPage}/>
+            </div>
 
             <div className="h-full grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
                 {

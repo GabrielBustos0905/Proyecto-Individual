@@ -75,3 +75,18 @@ export const createActivity = (data) => {
     }
 };
 
+export const orderBy = (value, property) => {
+    return function(dispatch){
+        if(property === "Name") {
+            return dispatch({
+                type: "ORDER_BY_NAME",
+                payload: value
+            })
+        }
+        return dispatch({
+            type: "ORDER_BY_POPULATION",
+            payload: value
+        })
+    }
+};
+

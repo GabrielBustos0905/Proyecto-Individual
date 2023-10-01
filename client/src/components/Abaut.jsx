@@ -22,6 +22,9 @@ const Abaut = () => {
                         <div className="w-2/3 flex flex-col justify-center items-center m-4">
                             <h2 className="text-gray-600 text-4xl font-semibold inline border-b-4 border-[#ad9efc] mb-8">Project Description</h2>
                             <p className="text-xl font-light text-gray-800">Welcome to World in Detail, your window into the fascinating world of countries across the globe. Our platform offers you a unique visual experience to explore global diversity, from major capitals to the most authentic cultural activities.</p>
+                            <p className="text-xl font-light text-gray-800 mt-4">
+                            For my individual project at Soy Henry, I have been tasked with creating a website about countries. I have worked on it from the backend, using Sequelize for building models for the Postgres database, and Express for routing. I also worked on the frontend using React to create components, utilizing its hooks, Redux, Tailwind for page styling, Leaflet as the map for searching, and React-router-dom for website routing.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -31,7 +34,7 @@ const Abaut = () => {
                         {
                             technologies.map((tech, index) => {
                                 return (
-                                    <img id="index" src={tech} alt="" className="w-30 h-20 m-4"/>
+                                    <img id={index} src={tech} alt="" className="w-30 h-20 m-4"/>
                                 )
                             })
                         }
