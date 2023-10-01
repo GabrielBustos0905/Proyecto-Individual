@@ -1,6 +1,6 @@
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { Popup } from "react-leaflet";
-import 'leaflet/dist/Leaflet.css';
+import 'leaflet/dist/leaflet.css';
 import './MapViews.css'
 
 const MapViews = ({coords, name}) => {
