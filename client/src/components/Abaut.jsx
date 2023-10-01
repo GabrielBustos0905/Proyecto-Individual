@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import Icon from "../assets/Icono.png";
+import icon from "../assets/Icono.png";
 import React from "../assets/react.png";
 import Html from "../assets/html.png";
 import Tailwind from "../assets/tailwind.png";
@@ -17,7 +17,7 @@ const Abaut = () => {
                 <div className="flex justify-center items-center bg-white w-10/12">
                     <div className="flex justify-center items-center">
                         <div className="w-1/3 flex justify-center items-center m-4">
-                            <img src={Icon} alt="" className="w-60 h-60"/>
+                            <img src={icon} alt="" className="w-60 h-60"/>
                         </div>
                         <div className="w-2/3 flex flex-col justify-center items-center m-4">
                             <h2 className="text-gray-600 text-4xl font-semibold inline border-b-4 border-[#ad9efc] mb-8">Project Description</h2>
