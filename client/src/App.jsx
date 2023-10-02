@@ -8,7 +8,8 @@ import ActivityForm from "./components/Activity Form/ActivityForm";
 import Abaut from "./components/Abaut";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:3001"
+// axios.defaults.baseURL = "http://localhost:3001"
+axios.defaults.baseURL = "https://pi-countries-0fcr.onrender.com";
 
 const App = () => {
     
