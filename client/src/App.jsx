@@ -9,7 +9,6 @@ import Abaut from "./components/Abaut";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3001"
-// axios.defaults.baseURL = "https://proyecto-individual-blush.vercel.app"
 
 const App = () => {
     
