@@ -40,6 +40,17 @@ const Abaut = () => {
                         }
                     </div>
                 </div>
+                <div className="flex justify-center items-center mt-16 mb-8">
+                    <div className="flex flex-col justify-center items-center bg-white w-10/12">
+                        <p className="text-gray-600 text-4xl font-semibold inline border-b-4 border-[#ad9efc] mb-8">Project Details</p>
+                        <p className="text-xl font-light text-gray-800 mt-4 mr-4 ml-4 text-justify">
+                            I have used Sequelize as an ORM for setting up the models (countries, activities) in the database using PostgreSQL, and Express to provide functionality to the web page (setting up the necessary routes). I'm not a backend developer, but I've put in the effort to make it as smooth and error-free as possible.
+                        </p>
+                        <p className="text-xl font-light text-gray-800 mt-4 mr-4 ml-4 text-justify">
+                            I initialized the frontend using Vite, which is more efficient and optimized compared to Webpack. I used React throughout the entire webpage. On the home route ('/'), you'll see a navigation bar. In the countries section, there's a search and filtering menu for country cards, including sorting by name and population. In a separate route, I've created a form for creating activities using local states provided by the React hook. It's a validated form with image uploads to the Firebase cloud. I used react-router-dom for page routing. In the country detail route ('/countries/id'), you'll find details of the selected country, including information about the country and its location using the Leaflet API, as well as the activities it offers
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     )
